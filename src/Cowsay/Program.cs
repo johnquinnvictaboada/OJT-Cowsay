@@ -9,19 +9,19 @@ class Program
         cowsay.Reply += OnReply;
 
 
-        //loopster keep asking for input
-        while (true)
-        {
-            Console.Write("Enter input (or 'exit' to quit): ");
+        // //loopster keep asking for input
+        // while (true)
+        // {
+            Console.Write("-> Tell me what you want to say: ");
             string? input = Console.ReadLine();
 
-            if (input?.ToLower() == "exit")
-            {
-                break; // Exit the loop if the user types 'exit'
-            }
+            // if (input?.ToLower() == "exit")
+            // {
+            //     break; // Exit the loop if the user types 'exit'
+            // }
 
             cowsay.Say(input);
-        }
+        // }
     }
 
     static void OnReply(object sender, string reply)
