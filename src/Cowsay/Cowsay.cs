@@ -5,7 +5,7 @@ namespace Class
 {
     public class Cowsay
     {
-        public event EventHandler<string> Reply;
+        public event EventHandler<string>? Reply;
 
         public void Say(string message)
         {
@@ -19,7 +19,7 @@ namespace Class
                     RedirectStandardInput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false, // Required to redirect input/output
-                    CreateNoWindow = true // Do not create a console window
+                    // CreateNoWindow = true // Do not create a console window
                 }
             };
 
