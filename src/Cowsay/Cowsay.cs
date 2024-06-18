@@ -24,14 +24,25 @@ namespace Class
                 }
             };
 
-            // Handle outputz and errorz
-            process.OutputDataReceived += (sender, args) => OnReply(args.Data); // Handle standard output
-            process.ErrorDataReceived += (sender, args) => OnReply(args.Data); // Handle error output
-
-            // Start
+            // Starting the process
             process.Start();
-            process.BeginOutputReadLine(); // Begin reading output asynchronously
-            process.BeginErrorReadLine(); // Begin reading error output asynchronously
+
+            // Write the message to the standard input of the cowsay process
+            using (StreamWriter writer = process.StandardInput)
+            {
+                if (writer.BaseStream.CanWrite)
+                {
+                    writer.WriteLine(message); 
+                }
+            }
+
+            // Handles outputs and error
+            string stdout = process.StandardOutput.ReadToEnd();
+            string stderr = process.StandardError.ReadToEnd();
+
+            // Handle reply from stdout and stderr
+            OnReply(stdout);
+            OnReply(stderr);
 
             // Wait for the process to finish
             process.WaitForExit();
