@@ -30,8 +30,6 @@ namespace Class
             // process.OutputDataReceived += (sender, args) => OnReply(args.Data); // Handle standard output
             // process.ErrorDataReceived += (sender, args) => OnReply(args.Data); // Handle error output
 
-            // Start the process
-            process.Start();
             // process.BeginOutputReadLine(); // Begin reading output asynchronously
             // process.BeginErrorReadLine(); // Begin reading error output asynchronously
 
