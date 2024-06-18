@@ -15,7 +15,6 @@ namespace Class
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "cowsay", // Set the command to run cowsay
-                    Arguments = message, // Pass the message as an argument
                     RedirectStandardOutput = true, // Redirect standard output to capture cowsay's output
                     RedirectStandardInput = true,
                     RedirectStandardError = true,
@@ -24,23 +23,38 @@ namespace Class
                 }
             };
 
-            // Starting the process
+            // Start
             process.Start();
 
-            // Write the message to the standard input of the cowsay process
-            using (StreamWriter writer = process.StandardInput)
-            {
-                if (writer.BaseStream.CanWrite)
-                {
-                    writer.WriteLine(message); 
-                }
-            }
+            // Handle output and errors
+            // process.OutputDataReceived += (sender, args) => OnReply(args.Data); // Handle standard output
+            // process.ErrorDataReceived += (sender, args) => OnReply(args.Data); // Handle error output
 
-            // Handles outputs and error
+            // Start the process
+            process.Start();
+            // process.BeginOutputReadLine(); // Begin reading output asynchronously
+            // process.BeginErrorReadLine(); // Begin reading error output asynchronously
+
+            //Write the message to the standard input of the cowsay process
+
+            //The "using" statement ensures that the disposable instance is disposed
+            // using (StreamWriter writer = process.StandardInput) {
+            //     if (writer.BaseStream.CanWrite){ //Checks if the stream of StreamWriter supports writing
+            //         writer.WriteLine(message); 
+            //     }
+            // }
+
+            //If using statement is not used we have to close the StreamWriter properly
+            StreamWriter writer = process.StandardInput;
+            writer.WriteLine(message);
+            writer.Close(); //Closes input stream properly
+
+            //Handles outputs and error
             string stdout = process.StandardOutput.ReadToEnd();
             string stderr = process.StandardError.ReadToEnd();
 
-            // Handle reply from stdout and stderr
+            // Console.WriteLine(stdout,stderr);
+            //Handle reply from stdout and stderr
             OnReply(stdout);
             OnReply(stderr);
 
