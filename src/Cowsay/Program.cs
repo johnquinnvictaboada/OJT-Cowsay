@@ -8,23 +8,15 @@ class Program
         var cowsay = new Cowsay();
         cowsay.Reply += OnReply;
 
+        Console.Write("-> Tell me what you want to say: ");
+        string? input = Console.ReadLine();
 
-        // //loopster keep asking for input
-        // while (true)
-        // {
-            Console.Write("-> Tell me what you want to say: ");
-            string? input = Console.ReadLine();
-
-            // if (input?.ToLower() == "exit")
-            // {
-            //     break; // Exit the loop if the user types 'exit'
-            // }
-
+        if(input!=null){
             cowsay.Say(input);
-        // }
+        }
     }
 
-    static void OnReply(object sender, string reply)
+    static void OnReply(object? sender, string reply)
     {
         // Retrieves reply from terminal and displays it
         Console.WriteLine(reply);
